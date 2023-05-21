@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+{% block content %}
+{% csrf_token %}
+<form method="post" >
+    {% csrf_token %}
+{% if not status %}
+    <h2>вы хотите подписаться на еженедельную рассылку новостей?</h2>
+    <button type="action" name = "wish" value="yes" >ДА</button>
+  {% else %}
+    <h2>вы хотите отписаться от еженедельной рассылки новостей?</h2>
+    <button type="action" name = "wish" value="unsubscribe" >ОТПИСАТЬСЯ</button>
+   {% endif %}
+    <button type="action" name = "wish" value="no" >НЕТ</button>
+</form>
+{% endblock content %}
+</body>
+</html>

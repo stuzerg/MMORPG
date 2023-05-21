@@ -1,0 +1,62 @@
+
+ {% load static %}
+ <script type="text/javascript" src="{% static "ckeditor/ckeditor-init.js" %}"></script>
+<script type="text/javascript" src="{% static "ckeditor/ckeditor/ckeditor.js" %}"></script>
+
+{% block title %}
+
+{% endblock title %}
+
+
+{% block content %}
+
+<head>
+<style>
+table, th, td {
+  border: 1px solid black;
+  border-collapse: collapse;
+}
+</style>
+</head>
+<h1>{{header_name}}  </h1>
+
+ {% if user.username %}
+    <div><h2>Приветствую, {{user}} с ИД={{user.pk}}! Хотите создать новый <a href="/create">ПОСТ?</a> или посмортеть <a href="/review">ОТКЛИКИ</a> на свои посты?</h2><a href="/logout">выйти</a></div>
+ {% else %}
+    <div>   <a href="/login">вход на сайт</a></div>
+ {% endif %}
+  <div><a href="/subscribe">{{sub_message}}</a></div>
+  <div><a href="/all">на главную</a></div>
+
+<form action="/#" method="post">
+        {% csrf_token %}
+
+
+
+           {% for pst in posts %}
+    <table >
+    <tr>
+        <th>
+     <table >
+
+         <th> <p title="перейти к посту"> <a href="/all/{{ pst.pk | safe }}"> перейти к посту Заголовок: {{ pst.header | safe }}</p></a></th>
+         <th> <p title="перейти к постам автора">  <a href="/user/{{pst.user.pk}}"> перейти к постам автора {{ pst.user | safe }} c ИД= {{ pst.user.pk | safe }} </p></a> </th>
+         <th>   Специальность: {{ pst.staff | safe }} </th>
+     </table>
+        </th>
+    </tr>
+        <th>
+            {{ pst.body | safe }}
+        </th>
+
+    </tr>
+        </table>
+    <br>
+    <br>
+
+           {% endfor %}
+
+
+<!--     <input type="submit" class="expanded button" value="ОПУБЛИКОВАТЬ">-->
+</form>
+{% endblock content %}

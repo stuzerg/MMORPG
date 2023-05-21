@@ -1,0 +1,59 @@
+{% load static %}
+
+
+
+{% block content %}
+
+<head>
+<style>
+table, th, td {
+  border: 1px solid black;
+  border-collapse: collapse;
+}
+</style>
+</head>
+<h1>{{header_name}}  </h1>
+<h1>Отклики</h1>
+ {% if user.username %}
+    <div><h2>Приветствую, {{user}}с ИД={{user.pk}}! Хотите создать новый <a href="/create">ПОСТ?</a></h2><a href="/logout">выйти</a></div>
+ {% else %}
+    <div>   <a href="/login">вход на сайт</a></div>
+ {% endif %}
+
+  <a href="/all">на главную</a></div>
+<form action="" method="get">
+
+       {{ filterset.form.as_p }}
+
+       <input type="submit" value="Найти" />
+   </form>
+        {% csrf_token %}
+        {% for r in rvws %}
+    <table >
+    <tr>
+        <th>
+     <table >
+
+         <th> <p title="пользователь">Пришло от: <a href="/user/{{r.reviewuser.pk}}"> {{r.reviewuser}} </p></a></th>
+         <th> <p title="пост">   Отправлено: <a href="/all/{{r.reviewpost.pk}}"> {{r.date_creation}}    </a> </p></th>
+         <th> <p title="принято">   Принято: {{r.acceptance}}  </p> </th>
+
+     </table>
+        </th>
+    </tr>
+        <th>
+            <a href=/review_action/{{r.pk}}>{{ r.reviewbody | safe }}    </a>
+
+        </th>
+
+    </tr>
+        </table>
+    <br>
+    <br>
+
+           {% endfor %}
+
+
+
+
+{% endblock content %}

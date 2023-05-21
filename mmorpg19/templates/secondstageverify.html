@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>страница подтверждения регистрации</title>
+</head>
+
+<form method="post" >
+    {% csrf_token %}
+
+    {{kode}}
+    <label for="code"> код:</label><br>
+    <input type="text" id= 'code' name = "code" required>
+</tr>
+
+<input  value="подтвердить код" name="button" type="submit" >
+
+
+
+</form>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>страница регистрации</title>
+</head>
+
+<form  method="post" >
+    {% csrf_token %}
+<table>
+    <h1>страница регистрации {{some_value}}</h1><br>
+     {% if not code %}
+<tr>
+    <label for="email">email:</label><br>
+    <input type="email" label = 'email'id="email" name = "email" required><br>
+</tr>
+
+<tr>
+    <label for="name">имя:</label><br>
+    <input type="username" label = 'имя'id="name" name = "username" required><br>
+</tr>
+
+<tr>
+    <label for="password"> пароль:</label><br>
+    <input type="password" id= 'password' name = "password" required>
+</tr>
+
+<input  value="зарегистрироваться и отправить на почту код" name="button"  id="firststep" type="submit"  />
+
+    {% else %}
+    <tr>
+    {{code}}
+    <label for="code"> код:</label><br>
+    <input type="text" id= 'code' name = "code" required>
+</tr>
+
+<input  value="подтвердить код" name="button" type="submit" >
+    {% endif %}
+
+
+</form>

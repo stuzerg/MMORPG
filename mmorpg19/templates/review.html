@@ -1,0 +1,31 @@
+{% load static %}
+
+
+
+{% block content %}
+
+<head>
+<style>
+table, th, td {
+  border: 1px solid black;
+  border-collapse: collapse;
+}
+</style>
+</head>
+<h1>{{header_name}}  </h1>
+
+ {% if user.username %}
+<div><h2>Приветствую, {{user}} с ИД={{user.pk}}! Хотите создать новый отклик?</h2><a href="/logout">выйти</a></div>
+ {% else %}
+    <div>   <a href="/login">вход на сайт</a></div>
+ {% endif %}
+
+  <a href="/all">на главную</a></div>
+
+<form method="post">
+        {% csrf_token %}
+        {{form.as_p}}
+        <input type="submit" class="expanded button" value="ОПУБЛИКОВАТЬ">
+
+</form>
+{% endblock content %}

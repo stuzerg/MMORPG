@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1>Отклик</h1>
+{% block content %}
+<form action = ''>
+
+{{rvw}}
+    <br>
+    <br>
+
+
+          <a>Принять отклик  <input type="radio" name="choice{{r.pk}}"  value="acc"></a>
+    <br>
+          <a>Удалить отклик<input type="radio" name="choice{{r.pk}}"  value="dny"></a>
+    <br>
+  <input type="submit" class="expanded button" value="ОПУБЛИКОВАТЬ">
+</form>
+{% endblock content %}
+</body>
+</html>

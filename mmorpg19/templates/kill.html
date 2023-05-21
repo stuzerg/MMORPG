@@ -1,0 +1,28 @@
+{% block content %}
+ <body bgcolor="#222222">
+
+ </body>
+<form method="post">
+     {% csrf_token %}
+    <font  color="#ffffff" >
+        {% if warning %}
+        <h1> {{warning}} </h1>
+        {% else %}
+    <h1> Удалить пост?</h1>
+        <input type="submit"  value="удалить">
+        {% endif %}
+      <h1>Заголовок: {{ pst.header | safe }}
+
+           Автор: <a href="/user/{{ pst.user.pk}}">{{ pst.user | safe }},</a>
+           Специальность: {{ pst.staff | safe }}<h1>
+    <br>
+            {{ pst.body | safe }}
+
+        <a href="/all">на главную</a>
+
+
+
+
+        </font>
+</form>
+{% endblock content %}

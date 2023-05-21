@@ -1,0 +1,97 @@
+ {% load static %}
+ <script type="text/javascript" src="{% static "ckeditor/ckeditor-init.js" %}"></script>
+<script type="text/javascript" src="{% static "ckeditor/ckeditor/ckeditor.js" %}"></script>
+
+{% block title %}
+
+{% endblock title %}
+
+
+{% block content %}
+
+
+<h1>Пост {{ pst.header}}  </h1>
+
+ {% if user.username %}
+    <div><h2>Приветствую, {{user}}</h2><a href="/logout">выйти</a></div>
+ {% else %}
+    <div>   <a href="/login">вход на сайт</a></div>
+ {% endif %}
+
+<style>
+table, th, td {
+  border: 1px solid black;
+  border-collapse: collapse;
+}
+   .btnblack {
+    display: inline-block;
+    background: #000000;
+    color: #ff0000;
+    padding: 1rem 1.5rem;
+    text-decoration: none;
+    border-radius: 3px;
+   }
+   .btngrey {
+    display: inline-block;
+    background: #9999ff;
+    color: #ff0000;
+    padding: 1rem 1.5rem;
+    text-decoration: none;
+    border-radius: 3px;
+   }
+   .btngreen {
+    display: inline-block;
+    background: #99ff99;
+    color: #f;
+    padding: 1rem 1.5rem;
+    text-decoration: none;
+    border-radius: 3px;
+   }
+  </style>
+
+<form  method="post">
+        {% csrf_token %}
+         {% if warning %}
+        <h1> {{warning}} </h1>
+        {% else %}
+
+
+
+
+           Заголовок: {{ pst.header | safe }}
+
+           Автор: <a href="/user/{{ pst.user.pk}}">{{ pst.user | safe }},</a>
+           Специальность: {{ pst.staff | safe }}
+    <br>
+
+    {{ pst.body | safe }}
+        {% if  pst.user.pk == user.pk %}
+    <a href="/kill/{{ pst.pk}}" class="btnblack">УДАЛИТЬ</a>
+
+    <a href="/edit/{{ pst.pk}}" class="btngrey">ИЗМЕНИТЬ</a>
+
+    {% endif %}
+     <a href="/review/{{ pst.pk}}" class="btngreen">ОСТАВИТЬ ОТКЛИК</a>
+     {% endif %}
+<br>
+<a href="/all">на главную</a></div>
+
+      <h1>ОТКЛИКИ:</h1>
+    <br>
+
+    {% for r in revs %}
+    <table>
+        <tr>
+            <th> {{r.date_creation|date:"j E Y в H:i:s"}}  написал {{r.reviewuser.username}}:</th>
+        </tr>
+        <tr>
+            <td>{{r.reviewbody}}</td>
+        </tr>
+     </table>
+    {% endfor %}
+
+
+
+
+</form>
+{% endblock content %}

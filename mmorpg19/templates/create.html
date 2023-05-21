@@ -1,0 +1,33 @@
+ {% load static %}
+ <script type="text/javascript" src="{% static "ckeditor/ckeditor-init.js" %}"></script>
+<script type="text/javascript" src="{% static "ckeditor/ckeditor/ckeditor.js" %}"></script>
+
+{% block title %}
+
+{% endblock title %}
+
+
+{% block content %}
+
+
+<h1>Все посты  </h1>
+
+ {% if user.username %}
+    <div><h2>Приветствую, {{user}}</h2><a href="/logout">выйти</a></div>
+ {% else %}
+    <div>   <a href="/login">вход на сайт</a></div>
+ {% endif %}
+  {% if warning %}
+        <h1> {{warning}} </h1>
+        {% else %}
+
+
+<form method="post">
+        {% csrf_token %}
+        {{form.as_p}}
+        <input type="submit" class="expanded button" value="ОПУБЛИКОВАТЬ">
+
+</form>
+
+ {% endif %}
+{% endblock content %}
