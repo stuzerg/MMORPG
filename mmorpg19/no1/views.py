@@ -76,7 +76,6 @@ def review_action(request, pk):
 
     if to_do == 'dny':
         r = review.objects.get(pk=pk)
-        r.delete()
 
         print('ваш отклик удалён',
                      commented_post.reviewuser.email,
@@ -84,6 +83,7 @@ def review_action(request, pk):
         mail_to_send('ваш отклик удалён',
                      commented_post.reviewuser.email,
                      f'отклик на пост {commented_post.reviewpost.header} удалён пользователем {request.user}')
+        r.delete()
         return HttpResponseRedirect(reverse('all'))
 
     return render(request,"review_action.html")
