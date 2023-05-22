@@ -84,9 +84,9 @@ def review_action(request, pk):
         mail_to_send('ваш отклик удалён',
                      commented_post.reviewuser.email,
                      f'отклик на пост {commented_post.reviewpost.header} удалён пользователем {request.user}')
+        return HttpResponseRedirect(reverse('all'))
 
-
-    return HttpResponseRedirect(reverse('all'))
+    return render(request,"review_action.html")
 
 
 class ReviewFilter(FilterSet):
@@ -133,6 +133,11 @@ class ReviewKreator(LoginRequiredMixin, CreateView): #  создание отк�
         check_user = form
         check_user.instance.reviewuser = self.request.user
         check_user.instance.reviewpost = post.objects.get(pk=self.kwargs['pk'])
+        sub = f"""для пользователя {post.objects.get(pk=self.kwargs["pk"]).user} есть новый отклик от пользователя {self.request.user}"""
+        to = post.objects.get(pk=self.kwargs["pk"]).user.email
+        bod = check_user.instance.reviewbody
+        print(f'тема:{sub} кому:{to} сообщение:{bod}')
+        mail_to_send(sub, to, bod)
         return super().form_valid(form)
 
 
